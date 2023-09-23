@@ -1,41 +1,34 @@
 package Questao2;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class FilaShow {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 
             List<String> fila = new ArrayList<>();
-            try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\11513288\\Desktop\\ListaPessoasIngresso.txt"))) {
-                String linha;
-                while ((linha = br.readLine()) != null) {
-                    fila.add(linha);
+            String ler = "C:\\Users\\11513288\\Desktop\\ListaPessoasIngresso.txt";
+
+            try(Scanner read = new Scanner(new File(ler))){
+
+                while (read.hasNextLine()){
+                    fila.add(read.nextLine());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+
             }
+
 
         // Mostrar os 10 primeiros ingressos VIP
             System.out.println("Ingressos VIP (primeiros 10):");
-            for (int i = 0; i < Math.min(10, fila.size()); i++) {
-                System.out.println(fila.get(i));
+            for (int i = 0; i < 10; i++) {
+                System.out.println(fila.remove(0));
             }
 
-            // Sortear uma pessoa de sorte
-            if (!fila.isEmpty()) {
-                Collections.shuffle(fila);
-                String pessoaSorteada = fila.get(0);
-                System.out.println("\nPessoa sorteada para conhecer a banda: " + pessoaSorteada);
-                fila.remove(0);
-            } else {
-                System.out.println("\nNão há ingressos na fila para sortear.");
-            }
+          int sorteado = new Random().nextInt(fila.size());
+        System.out.println("A pessoa sorteada é: " + fila.remove(sorteado));
+
         }
     }
 
